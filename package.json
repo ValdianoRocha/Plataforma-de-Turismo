@@ -1,0 +1,28 @@
+{
+  "name": "plataforma-de-turismo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ValdianoRocha/Plataforma-de-Turismo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ValdianoRocha/Plataforma-de-Turismo/issues"
+  },
+  "homepage": "https://github.com/ValdianoRocha/Plataforma-de-Turismo#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite": "^5.1.1",
+    "zod": "^3.24.4"
+  }
+}
