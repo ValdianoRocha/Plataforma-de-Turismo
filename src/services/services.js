@@ -51,6 +51,28 @@ export async function serviceFilterPlace(type) {
 
 // login
 export async function serviceLogin(email, password) {
+    const user = await prisma.user.findUnique({
+        where: {
+            email
+        }
+    });
+    if(user){
+       if(user.password == password){
+        return true
+       }
+       return false
+    }
+    const adm = await prisma.admin.findUnique({
+        where:{
+            email
+        }
+    })
+    if(adm){
+        if(adm.password == password){
+            return true
+        }
+    }
+    return false
 
 }
 
