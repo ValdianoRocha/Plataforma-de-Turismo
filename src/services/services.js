@@ -1,21 +1,44 @@
 import { PrismaClient } from '@prisma/client';
+import { comparePassword, genereteToken, hashPassword } from '../utils/utils.js';
 
 const prisma = new PrismaClient()
 
 
 // cria no db user um novo turista
 export async function serviceCreateUser(name, email, phone, password) {
-    return await prisma.user.create({
-        data: { name, email, phone, password }
+
+    //criar a senha do usuario hasheada(cryptografada)
+    const hashedPassword = await hashPassword(password)
+
+    const newUser = await prisma.user.create({
+        data: {
+            name: name,
+            email: email,
+            phone: phone,
+            password: hashedPassword
+        }
     })
+    // gerar um token
+    const token = genereteToken(newUser)
+    return token
 
 }
 
 // cria no db admin um novo adm
 export async function serviceCreateAdm(name, email, password) {
-    return await prisma.admin.create({
-        data: { name, email, password }
+
+    //criar a senha do usuario hasheada(cryptografada)
+    const hashedPassword = await hashPassword(password)
+
+    const newAdm = await prisma.admin.create({
+        data: {
+            name: name,
+            email: email,
+            password: hashedPassword
+        }
     })
+    const token = genereteToken(newAdm)
+    return token
 
 }
 
@@ -56,21 +79,41 @@ export async function serviceLogin(email, password) {
             email
         }
     });
-    if(user){
-       if(user.password == password){
-        return true
-       }
-       return false
+    // console.log(user);
+
+    if (user) {
+        const passwordMastch = await comparePassword(password, user.password)
+
+        if (!passwordMastch) {
+            return false
+        }
+
+        const token = genereteToken(user)
+
+        return token
+
     }
     const adm = await prisma.admin.findUnique({
-        where:{
+        where: {
             email
         }
     })
-    if(adm){
-        if(adm.password == password){
-            return true
+    // console.log(adm);
+
+    if (adm) {
+        // console.log("teste");
+        
+        const passwordMastch = await comparePassword(password, adm.password)
+        // console.log(passwordMastch);
+
+        if (!passwordMastch) {
+            return false
         }
+
+        const token = genereteToken(adm)
+        
+
+        return token
     }
     return false
 

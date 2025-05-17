@@ -19,12 +19,15 @@ export const crieteUser = async (req, res) => {
         if (await existeEmail(email)) {
             res.send("Enail ja esta em uso!")
         }
-        const newUser = await serviceCreateUser(name, email, phone, password,)
+        const token = await serviceCreateUser(name, email, phone, password,)
 
-        res.status(201).send(`Usuario: ${name} do Email: ${email}, foi criado!`)
+        res.status(201).json({
+            mensagem: `Usuario ${name} criado!`,
+            token: token
+        })
     } catch (error) {
         res.status(500).json({
-            mensagem: 'ERRO AO CRIAR NOVO USUARIO\n(controller)',
+            mensagem: 'ERRO AO CRIAR NOVO USUARIO',
             erro: error
         })
     }
@@ -37,12 +40,16 @@ export const crieteAdm = async (req, res) => {
         if (await existeEmail(email)) {
             res.send("Enail ja esta em uso!")
         }
-        const newAdmin = await serviceCreateAdm(name, email, password)
+        const token = await serviceCreateAdm(name, email, password)
 
-        res.status(201).send(`adm cadastrado`)
+
+        res.status(201).json({
+            mensagem: `Administrador ${name} criado!`,
+            token: token
+        })
     } catch (error) {
         res.status(500).json({
-            mensagem: 'ERRO AO CRIAR NOVO ADMIN\n(controller)',
+            mensagem: 'ERRO AO CRIAR NOVO ADMIN',
             erro: error
         })
     }
@@ -53,15 +60,18 @@ export const crieteAdm = async (req, res) => {
 export const loginController = async (req, res) => {
     const { email, password } = req.body
     try {
-        const login = await serviceLogin(email, password)
+        const token = await serviceLogin(email, password)
+        // console.log(token);
+        
 
-        if (login === true) {
-            res.send({
-                mensagem: "login feito com sucesso!"
+        if (token) {
+            res.status(201).json({
+                mensagem: "login feito com sucesso!",
+                token: token
             })
 
         } else {
-            res.send("Email não existe!")
+            res.send("Email ou senha incorreta!")
         }
 
     } catch (error) {
