@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/auth/register', crieteUser)// rota da criação de um turista (ok)
 router.post('/auth/register-adm', crieteAdm)// rota da criação de um adm (ok)
-router.post('/auth/login', loginController)// login
+router.post('/auth/login', loginController)// login (ok)
 router.post('/places', createPlace)//Criar Locais de turismo (OK)
 router.get('/places', getAllPlaces)//Retorna todos os locais cadastrados. (ok)
 router.get('/places/:type', filterPlaces)//Retorna apenas locais do tipo especificado.(ok)
