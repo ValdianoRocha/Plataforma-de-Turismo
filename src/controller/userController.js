@@ -11,7 +11,6 @@ import {
 } from "../services/services.js"
 
 
-
 // controller para criar um usuario turista
 export const crieteUser = async (req, res) => {
     try {
@@ -42,7 +41,6 @@ export const crieteAdm = async (req, res) => {
         }
         const token = await serviceCreateAdm(name, email, password)
 
-
         res.status(201).json({
             mensagem: `Administrador ${name} criado!`,
             token: token
@@ -53,7 +51,6 @@ export const crieteAdm = async (req, res) => {
             erro: error
         })
     }
-
 }
 
 // controller do login
@@ -61,8 +58,6 @@ export const loginController = async (req, res) => {
     const { email, password } = req.body
     try {
         const token = await serviceLogin(email, password)
-        // console.log(token);
-        
 
         if (token) {
             res.status(201).json({
@@ -129,8 +124,8 @@ export const updatePlaces = async (req, res) => {
     const { name, description, address, type, rating } = req.body
     try {
         const put = await serviceUpdateAddress(id, name, description, address, type, rating)
-        res.status(200).json(put)
 
+        res.status(200).json(put)
     } catch (error) {
         res.status(500).json({
             mensagem: 'ERRO AO ATUALIZAR O ENDEREÇO',

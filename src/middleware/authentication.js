@@ -1,12 +1,9 @@
 import { verifyToken } from "../utils/utils.js"
 
-
-
 export function authenticate(req, res, next) {
+
     // obter o token do header authorization
     const authHeader = req.headers['authorization']
-    
-
     const token = authHeader && authHeader.split(' ')[1]
 
     if (!token) {
@@ -16,16 +13,8 @@ export function authenticate(req, res, next) {
     }
 
     try {
-        //verificar se o token e valido
-        // adicionar os dados decofificado do token na requisição
-
         const decoded = verifyToken(token)
-        // return res.json({
-        //     mensagem: decoded
-        // })
-        // console.log(decoded);
-        
-        
+
         req.user = decoded
         next()
 

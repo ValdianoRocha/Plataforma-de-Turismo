@@ -9,7 +9,6 @@ export async function serviceCreateUser(name, email, phone, password) {
 
     //criar a senha do usuario hasheada(cryptografada)
     const hashedPassword = await hashPassword(password)
-
     const newUser = await prisma.user.create({
         data: {
             name: name,
@@ -18,10 +17,10 @@ export async function serviceCreateUser(name, email, phone, password) {
             password: hashedPassword
         }
     })
+
     // gerar um token
     const token = genereteToken(newUser)
     return token
-
 }
 
 // cria no db admin um novo adm
@@ -29,7 +28,6 @@ export async function serviceCreateAdm(name, email, password) {
 
     //criar a senha do usuario hasheada(cryptografada)
     const hashedPassword = await hashPassword(password)
-
     const newAdm = await prisma.admin.create({
         data: {
             name: name,
@@ -37,9 +35,9 @@ export async function serviceCreateAdm(name, email, password) {
             password: hashedPassword
         }
     })
+
     const token = genereteToken(newAdm)
     return token
-
 }
 
 // deleta places 
@@ -47,7 +45,6 @@ export async function serviceDelete(id) {
     return await prisma.place.delete({
         where: { id: Number(id) }
     })
-
 }
 
 //atualizar os endereços 
@@ -69,7 +66,6 @@ export async function serviceFilterPlace(type) {
             type
         }
     })
-
 }
 
 // login
@@ -79,7 +75,6 @@ export async function serviceLogin(email, password) {
             email
         }
     });
-    // console.log(user);
 
     if (user) {
         const passwordMastch = await comparePassword(password, user.password)
@@ -89,34 +84,27 @@ export async function serviceLogin(email, password) {
         }
 
         const token = genereteToken(user)
-
         return token
-
     }
+
     const adm = await prisma.admin.findUnique({
         where: {
             email
         }
     })
-    // console.log(adm);
 
     if (adm) {
-        // console.log("teste");
-        
+
         const passwordMastch = await comparePassword(password, adm.password)
-        // console.log(passwordMastch);
 
         if (!passwordMastch) {
             return false
         }
 
         const token = genereteToken(adm)
-        
-
         return token
     }
     return false
-
 }
 
 //todos os endereços 
@@ -130,7 +118,6 @@ export async function serviceCreatePlace(name, description, address, type, ratin
     return await prisma.place.create({
         data: { name, description, address, type, rating }
     })
-
 }
 
 export async function existeEmail(email) {

@@ -22,3 +22,21 @@ export const validateLoginSchema = z.object({
     email: z.string().email(),
     password: z.string().min(6).trim()
 })
+
+//validar createplaceschema
+export const createPlaceSchema = z.object({
+    name: z.string().min(2).trim(),
+    description: z.string().min(5).trim().optional(),
+    address: z.string().min(2).trim(),
+    type: z.string().min(2).trim(),
+    rating: z.number().positive(5)
+})
+
+//validar updateplaceschema
+export const updatePlaceSchema = z.object({
+    name: z.string().min(2).trim().optional(),
+    description: z.string().min(5).trim().optional(),
+    address: z.string().min(2).trim().optional(),
+    type: z.string().min(2).trim().optional(),
+    rating: z.number().positive(5).optional()
+})

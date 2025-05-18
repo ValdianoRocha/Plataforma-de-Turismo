@@ -19,7 +19,6 @@ export function validate(schema) {
             return res.status(400).json({
                 mensagem: "Erro de validação",
                 error: message
-
             })
         }
     }
