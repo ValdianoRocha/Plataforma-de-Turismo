@@ -27,4 +27,4 @@ Este projeto tem como objetivo o desenvolvimento de uma API REST para uma plataf
 
 1. Clone o repositório:
    ```bash
-   git clone <https://github.com/ValdianoRocha/Plataforma-de-Turismo.git>
+   git clone https://github.com/ValdianoRocha/Plataforma-de-Turismo.git
