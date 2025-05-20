@@ -8,7 +8,6 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 // cria uma senha criptografada
 export async function hashPassword(password) {
-
     return await bcrypt.hash(password, SALT_ROUNDS)
 
 }

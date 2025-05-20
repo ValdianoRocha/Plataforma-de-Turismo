@@ -1,5 +1,3 @@
-
-
 import { z } from 'zod'
 
 //validar user
@@ -26,10 +24,10 @@ export const validateLoginSchema = z.object({
 //validar createplaceschema
 export const createPlaceSchema = z.object({
     name: z.string().min(2).trim(),
-    description: z.string().min(5).trim().optional(),
+    description: z.string().min(5).trim(),
     address: z.string().min(2).trim(),
     type: z.string().min(2).trim(),
-    rating: z.number().positive(5)
+    rating: z.number().positive(5).max(5)
 })
 
 //validar updateplaceschema
@@ -38,5 +36,5 @@ export const updatePlaceSchema = z.object({
     description: z.string().min(5).trim().optional(),
     address: z.string().min(2).trim().optional(),
     type: z.string().min(2).trim().optional(),
-    rating: z.number().positive(5).optional()
+    rating: z.number().positive(5).max(5).optional()
 })

@@ -1,3 +1,4 @@
+
 import { verifyToken } from "../utils/utils.js"
 
 export function authenticate(req, res, next) {

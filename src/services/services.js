@@ -94,7 +94,6 @@ export async function serviceLogin(email, password) {
     })
 
     if (adm) {
-
         const passwordMastch = await comparePassword(password, adm.password)
 
         if (!passwordMastch) {
